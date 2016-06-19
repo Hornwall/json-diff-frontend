@@ -1,0 +1,25 @@
+<div class="row">
+  <input type="text" class="u-full-width" placeholder="Sök" ng-model="search_term" ng-change="search_term_changed(search_term)" />
+</div>
+<div class="row">
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>Namn</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="file in files">
+        <td>{{file}}</td>
+        <td>
+          <div class="u-pull-right">
+            <a href="#/{{repository_name}}/files/{{file}}" class="button button-primary">Visa fil</a>
+          </div>
+        </td>
+    </tbody>
+  </table>
+</div>
+<div class="row" ng-show="loading">
+  <div class="loading-spinner"></div>
+</div>

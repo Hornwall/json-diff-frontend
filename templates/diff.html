@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="row">
+    <h4>{{repository_name}} - {{file_name}}</h4>
+  </div>
+  <div class="row">
+    <div class="one-half column">
+      <a href="#/{{repository_name}}/files/{{file_name}}" class="button button-primary">Visa fil</a>
+    </div>
+    <div class="one-half column">
+  <label for="commit">Välj version att jämföra med:</label>
+      <select name="commit" 
+        ng-options="option.time for option in commits track by option.step" 
+        ng-model="commit"
+        ng-change="commit_changed(commit)">
+      </select>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="tabs-container">
+    <ul id="tabs">
+      <li id="side-by-side" class="selected" >Sida vid sida</li>
+      <li id="diff">Inline</li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div id="content">
+    <div id="side-by-side">
+      <div class="one-half column">
+        <div class="row">
+          <h4>Nuvarande</h4>
+        </div>
+        <div class="row">
+          <pre id="current_json"></pre>
+        </div>
+        <div class="row" ng-show="loading_current">
+          <div class="loading-spinner"></div>
+        </div>
+      </div>
+      <div class="one-half column">
+        <div class="row">
+          <h4>Förra</h4>
+        </div>
+        <div class="row">			
+          <pre id="old_json"></pre>
+        </div>
+        <div class="row" ng-show="loading_old">
+          <div class="loading-spinner"></div>
+        </div>
+      </div>
+    </div>
+    <div id="diff" class="hidden">
+        <div class="row" ng-show="loading_current || loading_old">
+          <div class="loading-spinner"></div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/tabs.js"></script>
+<script src="js/difflib.js"></script>
+<script src="js/diffview.js"></script>
+<script src="js/jquery.json-viewer.js"></script>

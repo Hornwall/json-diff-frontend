@@ -1,0 +1,96 @@
+<div class="row">
+  <h2>Ändrade filer i senaste versionen av {{repository_name}}</h2>
+</div>
+<div class="row">
+  <div class="tabs-container">
+    <ul id="tabs">
+      <li id="new" class="selected" >Nya filer ({{changes.added_documents.length || 0}})</li>
+      <li id="updated">Uppdaterade filer ({{changes.modified_documents.length || 0}})</li>
+      <li id="removed">Borttagna filer ({{changes.deleted_documents.length || 0}})</li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div id="content">
+    <div id="new">
+      <div class="row">
+        <table class="u-full-width">
+          <thead>
+            <tr>
+              <th>Filnamn</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="file in changes.added_documents">
+              <td>{{file}}</td>
+              <td>
+                <div class="u-pull-right">
+                  <a href="#/{{repository_name}}/files/{{file}}" class="button button-primary">Visa fil</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row" ng-show="changes.added_documents.length == 0 && !loading">
+        <h5>Inga filer har lagts till</h5>
+      </div>
+    </div>
+    <div id="updated" class="hidden">
+      <div class="row">
+        <table class="u-full-width">
+          <thead>
+            <tr>
+              <th>Filnamn</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="file in changes.modified_documents">
+              <td>{{file}}</td>
+              <td>
+                <div class="u-pull-right">
+                  <a href="#/{{repository_name}}/diff/{{file}}" class="button button-primary">Visa ändringar</a>
+                  <a href="#/{{repository_name}}/files/{{file}}" class="button">Visa fil</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row" ng-show="changes.modified_documents.length == 0 && !loading">
+        <h5>Inga filer har ändrats</h5>
+      </div>
+    </div>
+    <div id="removed" class="hidden">
+      <div class="row">
+        <table class="u-full-width">
+          <thead>
+            <tr>
+              <th>Filnamn</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="file in changes.deleted_documents">
+              <td>{{file}}</td>
+              <td>
+                <div class="u-pull-right">
+                  <a href="#/{{repository_name}}/diff/{{file}}" class="button button-primary">Visa ändringar</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row" ng-show="changes.deleted_documents.length == 0 && !loading">
+        <h5>Inga filer har tagits bort</h5>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" ng-show="loading">
+  <div class="loading-spinner"></div>
+</div>
+<script src="js/tabs.js"></script>

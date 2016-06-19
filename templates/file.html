@@ -1,0 +1,77 @@
+<div class="row">
+  <h4>{{repository_name}} - {{file_name}}</h4>
+</div>
+<div class="row">
+  <label for="commit">Välj version:</label>
+  <select name="commit" 
+    ng-options="option.time for option in commits track by option.step" 
+    ng-model="commit"
+    ng-change="commit_changed(commit)">
+  </select>
+</div>
+<div class="row">
+  <div class="tabs-container">
+    <ul id="tabs">
+      <li id="file" class="selected" >{{file_name}}</li>
+      <li id="related">Relaterade filer</li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div id="content">
+    <div id="file">
+      <div class="one-half column">
+          <div class="row">
+            <pre id="file_json"></pre>
+          </div>
+      </div>
+      <div class="one-half column">
+        <div ng-show="has_atc" >
+          <h5> ATC-koder </h5> 
+          <table>
+            <thead>
+              <th>ATC-kod</th>
+              <th>Svenskt namn</th>
+              <th>Engelskt namn</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="code in atc track by code.value">
+                <td>{{code.value}}</td>
+                <td>{{code.documentation[1].value}}</td>
+                <td>{{code.documentation[0].value}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div ng-show="has_narc_class">
+          <h5>Narkotikaklass</h5>
+          <table>
+            <thead>
+              <th>Svenska</th>
+              <th>Engelska</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{narc_class.documentation[1].value}}<td>
+                <td>{{narc_class.documentation[0].value}}<td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div id="related" class="hidden">
+      <ul>
+        <li ng-repeat="file in related_files">
+          <a href="#/{{repository_name}}/files/{{file}}">{{file}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row" ng-show="loading">
+    <div class="loading-spinner"></div>
+  </div>
+</div>
+
+<script src="js/tabs.js"></script>
+<script src="js/jquery.json-viewer.js"></script>
